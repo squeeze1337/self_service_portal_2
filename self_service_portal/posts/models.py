@@ -30,6 +30,7 @@ class Post(models.Model):
     * author --> Foreign Key User
     * title
     * sub_title
+    * category
     * content
     * slug
     * image
@@ -47,6 +48,13 @@ class Post(models.Model):
     )
     title = models.CharField(_("Titel"), max_length=250)
     sub_title = models.CharField(_("Untertitel"), max_length=250, blank=True, null=True)
+    category = models.ForeignKey(
+        PostCategory,
+        verbose_name=_("Post Kategorie"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
     image = models.ImageField(
         _("Cover Image"),
         upload_to="Post/cover_images/",

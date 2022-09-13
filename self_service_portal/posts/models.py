@@ -5,6 +5,7 @@ from turtle import title
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
+from taggit.managers import TaggableManager
 
 
 class PostCategory(models.Model):
@@ -68,6 +69,7 @@ class Post(models.Model):
     slug = models.SlugField(
         _("Slug"), blank=True, null=True, help_text=_("Titel als Url")
     )
+    tags = TaggableManager()
     published_on = models.DateTimeField(
         _("Veröffentlicht am"),
         auto_now=False,

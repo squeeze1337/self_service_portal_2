@@ -21,23 +21,23 @@ class Post(models.Model):
     * updated_on
     """
 
-    class BlogStatus(models.TextChoices):
+    class PostStatus(models.TextChoices):
         DRAFT = "DRAFT", _("Entwurf")
         PUBLISHED = "PUBLISHED", _("Veröffentlicht")
 
     status = models.CharField(
-        _("Status"), max_length=50, choices=BlogStatus.choices, default=BlogStatus.DRAFT
+        _("Status"), max_length=50, choices=PostStatus.choices, default=PostStatus.DRAFT
     )
     title = models.CharField(_("Titel"), max_length=250)
     sub_title = models.CharField(_("Untertitel"), max_length=250, blank=True, null=True)
     image = models.ImageField(
         _("Cover Image"),
-        upload_to="blog/cover_images/",
+        upload_to="Post/cover_images/",
         height_field=None,
         width_field=None,
         max_length=None,
     )
-    conten = models.TextField(_("Blog Inhalt"), blank=True, null=True)
+    conten = models.TextField(_("Post Inhalt"), blank=True, null=True)
     slug = models.SlugField(
         _("Slug"), blank=True, null=True, help_text=_("Titel als Url")
     )
@@ -50,3 +50,9 @@ class Post(models.Model):
     )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Post")
+        verbose_name_plural = _("Posts")
+        ordering = ["-created_on"]
+        get_latest_by = ["-created_on"]

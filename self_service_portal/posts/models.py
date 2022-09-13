@@ -7,6 +7,22 @@ from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
 
+class PostCategory(models.Model):
+    title = models.CharField(_("Titel"), max_length=250)
+    description = models.TextField(_("Beschreibung"), blank=True, null=True)
+
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Post Kategorie")
+        verbose_name_plural = _("Post Kategorien")
+        ordering = ["-created_on"]
+
+    def __str__(self):
+        return "{} - {}".format(self.pk, self.title)
+
+
 # Create your models here.
 class Post(models.Model):
     """Post model needs the following fields:

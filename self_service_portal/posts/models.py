@@ -15,29 +15,6 @@ from self_service_portal.posts.managers import PostManager
 User = get_user_model()
 
 # Create your models here
-class PostImages(models.Model):
-    title = models.CharField(_("Titel"), max_length=250)
-    alt_text = models.TextField(_("Beschreibung"))
-
-    image = models.ImageField(
-        _("Bild"),
-        upload_to="Post/images",
-        height_field=None,
-        width_field=None,
-        max_length=None,
-    )
-
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = _("Post Bild")
-        verbose_name_plural = _("Post Bilder")
-
-    def __str__(self):
-        return "{} - {}".format(self.pk, self.title)
-
-
 class PostCategory(models.Model):
     title = models.CharField(_("Titel"), max_length=250)
     description = models.TextField(_("Beschreibung"), blank=True, null=True)
@@ -132,3 +109,29 @@ class Post(models.Model):
         super(Post, self).save(*args, **kwargs)
 
     objects = PostManager()
+
+
+class PostImages(models.Model):
+    post = models.ForeignKey(
+        Post, verbose_name=_("Post"), on_delete=models.CASCADE, blank=True, null=True
+    )
+    title = models.CharField(_("Titel"), max_length=250)
+    alt_text = models.TextField(_("Beschreibung"))
+
+    image = models.ImageField(
+        _("Bild"),
+        upload_to="Post/images",
+        height_field=None,
+        width_field=None,
+        max_length=None,
+    )
+
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Post Bild")
+        verbose_name_plural = _("Post Bilder")
+
+    def __str__(self):
+        return "{} - {}".format(self.pk, self.title)

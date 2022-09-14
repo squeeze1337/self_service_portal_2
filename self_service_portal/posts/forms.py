@@ -29,6 +29,6 @@ class PostCommentCreateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_id = "id-create-comment"
-        self.helper.form_method = "comment"
+        self.helper.form_method = "post"
         self.helper.form_action = "submit_comment"
         self.helper.add_input(Submit("submit", _("Speichern")))

@@ -9,7 +9,7 @@ from self_service_portal.posts.models import Post, PostComment
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["status", "title", "sub_title", "category", "conten", "tags", "image"]
+        fields = ["title", "sub_title", "category", "conten", "tags", "image"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

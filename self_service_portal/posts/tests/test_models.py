@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import Client, TestCase
 from django.utils.text import slugify
 from faker import Faker
 
@@ -23,9 +23,14 @@ class TestPostModel(TestCase):
         self.assertEqual(self.post.title, Post.objects.get(id=self.post.pk).title)
 
     def test_post_str_method(self):
-        # self.assertEqual(self.post, "")
-        pass
+        self.assertEqual(
+            self.post.__str__(), "{} - {}".format(self.post.pk, self.post.title)
+        )
 
     def test_post_slugify(self):
         slug = slugify(self.title)
         self.assertEqual(slug, self.post.slug)
+
+
+class TestPostViews(TestCase):
+    pass

@@ -65,4 +65,4 @@ class PostCategoryCreateView(CreateView):
 
 class PostListView(ListView):
     mode = Post
-    queryset = Post.objects.published()
+    queryset = Post.objects.all()
